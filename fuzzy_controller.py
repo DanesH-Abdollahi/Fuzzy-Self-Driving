@@ -1,28 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 class FuzzyController:
-    """
-    #todo
-    write all the fuzzify,inference,defuzzify method in this class
-    """
-
     def __init__(self):
         pass
 
 
     def decide(self, left_dist,right_dist):
-        """
-        main method for doin all the phases and returning the final answer for rotation
-        """
         inference_left, inference_right, inference_nothing = self.inference(left_dist,right_dist)
         return self.defuzzify(inference_left, inference_right, inference_nothing)
+        
     
     def fuzzify (self, left_dist,right_dist):
-        """
-        fuzzify the input
-        """
-
         def close(x):
             if x >= 0 and x <= 50 : 
                 return (-1/50 * x) + 1
@@ -128,7 +116,7 @@ class FuzzyController:
             return high_left(x) if high_left(x) <= high_left_mu else high_left_mu
         
             
-        x = np.arange(-50,50,0.1)
+        x = np.arange(-50,50.001,0.001)
         y = np.zeros_like(x)
 
         for i in range(len(x)):
@@ -156,12 +144,7 @@ class FuzzyController:
             elif x[i] >= 20 and x[i] <= 50:
                 y[i] = high_left_value(x[i], inference_left[1])
 
-        plt.plot(x,y)
-        plt.grid(True)
-
-        answ = np.trapz(y * x, x) / np.trapz(y, x)
-
-        return answ
+        return np.trapz(y * x, x) / np.trapz(y, x)
             
 
 
