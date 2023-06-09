@@ -116,7 +116,7 @@ class FuzzyController:
             return high_left(x) if high_left(x) <= high_left_mu else high_left_mu
         
             
-        x = np.arange(-50,50.001,0.001)
+        x = np.arange(-50,50.01,0.01)
         y = np.zeros_like(x)
 
         for i in range(len(x)):
